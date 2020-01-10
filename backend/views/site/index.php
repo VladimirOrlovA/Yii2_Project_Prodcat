@@ -3,6 +3,9 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Backend';
+
+var_dump(Yii::getAlias('@images'));
+
 ?>
 <div class="site-index">
 

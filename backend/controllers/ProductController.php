@@ -78,7 +78,7 @@ class ProductController extends Controller
                 
                 $model->image = $model->imageFile->baseName . '.' . $model->imageFile->extension;
                             
-                $fileSaveRes = $model->imageFile->saveAs('uploads/images/' . $model->image);
+                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@images') . $model->image);
                         
                 if(!$fileSaveRes){
                     $transaction->rollBack();
