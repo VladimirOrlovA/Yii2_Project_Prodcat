@@ -18,7 +18,7 @@
     </div>
     
     <div style="width:200px; height:200px;">
-        <img src="C:\OSPanel\domains\Yii2_Project_Prodcat\prodcat\public_html\uploads\images" alt="" width="200" height="200">
+        <img src="http://admin.prodcat.com\uploads\images\products\Prod_Image_ID_1.jpg" alt="" width="200" height="200">
     </div>
     
     <p><a class="btn btn-default" href="http://admin.prodcat.com/index.php/product/update?id=<?=$item->id?>">Добавить в корзину&raquo;</a></p>

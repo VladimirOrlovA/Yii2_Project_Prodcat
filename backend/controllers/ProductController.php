@@ -76,7 +76,7 @@ class ProductController extends Controller
             
             if($model->imageFile && $model->validate()){
                 
-                $model->image = $model->imageFile->baseName . '.' . $model->imageFile->extension;
+                $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
                             
                 $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@images') . $model->image);
                         
@@ -99,44 +99,6 @@ class ProductController extends Controller
         }
         return $this->render('create', ['model' => $model]);
     }
-    
-    public function actionCreateTest()
-    {
-        $model = new Product();
-        
-        if ($model->load(Yii::$app->request->post())) {
-            
-            $transaction = Yii::$app->db->beginTransaction();
-            
-            if ($model->save()){
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                if($model->imageFile){
-                    if ($model->validate()) {
-                        
-                        $model->image = $model->imageFile->baseName . '.' . $model->imageFile->extension;
-                            
-                        $fileSaveRes = $model->imageFile->saveAs('../../public_html/uploads/images/' . $model->image);
-                        
-                        if(!$fileSaveRes){
-                            $transaction->rollBack();
-                            return $this->redirect('create', ['model' => $model]);
-                        }
-                    } else {
-                        $transaction->rollBack();
-                        return $this->redirect('create', ['model' => $model]);
-                    }
-                }
-                $transaction->commit();
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-            $transaction->commit();
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing Product model.
@@ -149,13 +111,36 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $transaction = Yii::$app->db->beginTransaction();
+            
+             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            
+            if($model->imageFile && $model->validate()){
+                
+                $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
+                            
+                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@images').'/'. $model->image);
+                        
+                if(!$fileSaveRes){
+                    $transaction->rollBack();
+                    return $this->redirect('update', ['model' => $model]);
+                }
+            }
+            
+            // обнуляем поле, иначе вызывается 
+            $model->imageFile = null;
+            if ($model->save()){
+                $transaction->commit();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else{    
+            $transaction->rollBack();
+            return $this->redirect('update', ['model' => $model]);
+            }
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -186,6 +171,17 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionGetImage($file_name) {
+
+        $base_path = Yii::getAlias('@images');
+
+        if (file_exists($base_path . $file_name)) {
+            return Yii::$app->response->sendFile($base_path . $file_name);
+        }
+
+        return false;
     }
     
 }

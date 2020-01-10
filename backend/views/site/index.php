@@ -4,7 +4,7 @@
 
 $this->title = 'Backend';
 
-var_dump(Yii::getAlias('@images'));
+//var_dump(Yii::getAlias('@images'));
 
 ?>
 <div class="site-index">
@@ -20,16 +20,17 @@ var_dump(Yii::getAlias('@images'));
     <div class="body-content">
 
         <div class="row">
-           
-           <?php foreach($product as $item): ?>
-           <div class="col-lg-3">
+
+            <?php foreach($product as $item): ?>
+            <div class="col-lg-3">
                 <h2><?=$item->model?></h2>
 
                 <p><?=$item->description?></p>
 
                 <p><a class="btn btn-default" href="http://admin.prodcat.com/index.php/product/update?id=<?=$item->id?>">Обновить товар &raquo;</a></p>
             </div>
-           <?php endforeach; ?>
-            
+            <?php endforeach; ?>
+
+        </div>
     </div>
 </div>

@@ -52,11 +52,8 @@ return [
         // стало - http://admin.prodcat.com/index.php/product/index
         'urlManager' => [
             'enablePrettyUrl' => true, // false - r=
-            'showScriptName' => false,  
+            'showScriptName' => false, // false то без  index.php
             'rules' => [
-//                '/' => 'site/index',
-//                'product' => 'product/index',
-        //         '<action>' => '<action>/index',
             ],
         ],
     ],

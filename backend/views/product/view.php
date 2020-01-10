@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     
     <div>
-        <img src="\uploads\images\<?=$model->image?>" alt="Изображения нет" style="width:200px">
+        <img src="C:\OSPanel\domains\Yii2_Project_Prodcat\uploads\images\products\Prod_Image_ID_1.jpg" alt="Изображения нет" style="height: 400px; width: 400px">
+        <? echo \yii\helpers\Url::to(['prodcat/product/get-image', 'file_name' => $model->image]) ?>
     </div>
 
 <?php echo "Информация о текущем пользователе - ".Yii::$app->user->id ?>

@@ -23,7 +23,7 @@ class UploadForm extends Model
     public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('../../public_html/uploads/images/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs(Yii::$app->getAlias('@images').'/'. $this->imageFile->baseName . '.' . $this->imageFile->extension);
             return true;
         } else {
             return false;
