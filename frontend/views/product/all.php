@@ -10,9 +10,11 @@
            <?php foreach($product as $item): ?>
            <div class="col-lg-5" style="border: 1px solid gray; border-radius: 10px; margin:10px;">
                 
-                <div style="height:100px;">
+                <div style="height:35px;">
                 <h2><?=$item->model?></h2>
                 </div>
+                
+                <img src="http://admin.prodcat.com/index.php/product/get-image?file_name=<?=$item->image?>" alt="" style="width:300px;">
                 
                 <div style="height:150px;">
                 <p><?=substr($item->description, 0, 200)?></p>

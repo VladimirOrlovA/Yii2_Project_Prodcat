@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use yii\web\UploadedFile;
-use backend\models\UploadImage;
+//use backend\models\UploadImage;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
@@ -78,7 +78,7 @@ class ProductController extends Controller
                 
                 $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
                             
-                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image') . $model->image);
+                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image'). '\\' . $model->image);
                         
                 if(!$fileSaveRes){
                     $transaction->rollBack();
@@ -117,11 +117,26 @@ class ProductController extends Controller
             
              $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             
+            $prevFileName = null;
+            $uploadFileName = null;
+            $fileSaveRes = null;
+            
             if($model->imageFile && $model->validate()){
-                
-                $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
+                        
+                // записываем путь/имя ранее сохраненного изображения продукта, чтобы его удалить в случае успешной записи нового изображения
+                $prevFileName = $model->image;
+                $prev_file_path = Yii::getAlias('@product_image').'\\'.$prevFileName;
+
+                $uploadFileName = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
+                    
+                // запись в поле нового имени для загружаемого файла
+                $model->image = $uploadFileName;
                             
-                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image').'/'. $model->image);
+                // записываем путь/имя_файла нового изображения
+                $new_file_path = Yii::getAlias('@product_image').'\\'. $model->image;
+                
+                // если сохранение прошло то запишем в переменную статус true
+                $fileSaveRes = $model->imageFile->saveAs($new_file_path);
                         
                 if(!$fileSaveRes){
                     $transaction->rollBack();
@@ -129,9 +144,13 @@ class ProductController extends Controller
                 }
             }
             
-            // обнуляем поле, иначе вызывается 
+            // обнуляем поле, иначе вызывается ошибка 
             $model->imageFile = null;
+            
             if ($model->save()){
+                if($prevFileName != $uploadFileName && $fileSaveRes){
+                    unlink($prev_file_path);
+                }
                 $transaction->commit();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -152,9 +171,15 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $delItem = $this->findModel($id);
+        if($delItem->status == 0){
+        $del_image_prod = Yii::getAlias('@product_image').'\\'.$delItem->image;
+        unlink($del_image_prod);
+        $delItem->delete();
         return $this->redirect(['index']);
+        }
+        
+         return $this->redirect(['index']);
     }
 
     /**
