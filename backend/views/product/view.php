@@ -42,10 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
-    <div>
-        <img src="C:\OSPanel\domains\Yii2_Project_Prodcat\uploads\images\products\Prod_Image_ID_1.jpg" alt="Изображения нет" style="height: 400px; width: 400px">
-        <? echo \yii\helpers\Url::to(['prodcat/product/get-image', 'file_name' => $model->image]) ?>
-    </div>
+    <div >
+        <?= Html::img(['/product/get-image', 'file_name' => $model->image], ['style'=>'width:200px;']) ?>
 
-<?php echo "Информация о текущем пользователе - ".Yii::$app->user->id ?>
+        <img src="<?= \yii\helpers\Url::to(['product/get-image', 'file_name' => $model->image]) ?>" alt="" style="height: 100px; width: 100px">
+        
+        <hr>
+        <?php echo "Информация о текущем пользователе ID - ".Yii::$app->user->id ?>
+    </div>
+    
+
 </div>

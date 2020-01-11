@@ -78,7 +78,7 @@ class ProductController extends Controller
                 
                 $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
                             
-                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@images') . $model->image);
+                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image') . $model->image);
                         
                 if(!$fileSaveRes){
                     $transaction->rollBack();
@@ -121,7 +121,7 @@ class ProductController extends Controller
                 
                 $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
                             
-                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@images').'/'. $model->image);
+                $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image').'/'. $model->image);
                         
                 if(!$fileSaveRes){
                     $transaction->rollBack();
@@ -175,7 +175,7 @@ class ProductController extends Controller
     
     public function actionGetImage($file_name) {
 
-        $base_path = Yii::getAlias('@images');
+        $base_path = Yii::getAlias('@path').'\uploads\images\products'.'/';
 
         if (file_exists($base_path . $file_name)) {
             return Yii::$app->response->sendFile($base_path . $file_name);

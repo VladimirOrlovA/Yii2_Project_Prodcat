@@ -1,5 +1,5 @@
 <?php
-
+    use yii\helpers\Html;
 ?>
 
 
@@ -9,17 +9,15 @@
         <h2><?=$product->model?></h2>
     </div>
 
-    <div style="height:150px;">
+      <img src="http://admin.prodcat.com/index.php/product/get-image?file_name=<?=$product->image?>" alt="" style="width:400px;">
+   
+    <div style="height:250px;">
         <p><?=$product->description ?></p>
     </div>
 
     <div style="height:50px;">
         <h2><?=substr($product->price, 0, strpos($product->price, '.'))?>тг</h2>
     </div>
-    
-    <div style="width:200px; height:200px;">
-        <img src="http://admin.prodcat.com\uploads\images\products\Prod_Image_ID_1.jpg" alt="" width="200" height="200">
-    </div>
-    
+
     <p><a class="btn btn-default" href="http://admin.prodcat.com/index.php/product/update?id=<?=$item->id?>">Добавить в корзину&raquo;</a></p>
 </div>
