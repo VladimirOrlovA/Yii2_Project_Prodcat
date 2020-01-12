@@ -76,7 +76,11 @@ class ProductController extends Controller
             
             if($model->imageFile && $model->validate()){
                 
-                $model->image = 'Prod_Image_ID_' . $model->id. '.' . $model->imageFile->extension;
+                // находим последний добавленный элемент в таблицу
+                $last_item = Product::find()->orderBy('id DESC')->one();
+                // выводим ID последнего элемента и добавляем 1, это будет ID добавляемого продукта
+                $product_ID = $last_item->id + 1;
+                $model->image = 'Prod_Image_ID_' . $product_ID . '.' . $model->imageFile->extension;
                             
                 $fileSaveRes = $model->imageFile->saveAs(Yii::getAlias('@product_image'). '\\' . $model->image);
                         
