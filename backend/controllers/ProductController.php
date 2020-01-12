@@ -76,7 +76,7 @@ class ProductController extends Controller
             
             if($model->imageFile && $model->validate()){
                 
-                // находим последний добавленный элемент в таблицу
+                // находим последний добавленный элемент в таблицу БД
                 $last_item = Product::find()->orderBy('id DESC')->one();
                 // выводим ID последнего элемента и добавляем 1, это будет ID добавляемого продукта
                 $product_ID = $last_item->id + 1;

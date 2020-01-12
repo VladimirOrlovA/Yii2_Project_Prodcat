@@ -6,16 +6,38 @@ $this->title = 'Frontend';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
+    <?php 
+    
+    // получить 'id' текущего пользователя
+    //echo Yii::$app->user->id; 
+    // получить 'username' текущего пользователя
+    //echo yii::$app->user->identity->username;
+    
+    $userId = Yii::$app->user->id;
+    $username = yii::$app->user->identity->username;
+    $login = 'show';
+    $logout = 'hidden';
+    ?>
+    
+    <div class="jumbotron <?php echo $class = $userId ? $logout : $login; ?>">
         <h1>Интернет магазин</h1>
 
         <p class="lead">Цены ниже конкурентов на 20%, на всю технику полная гарантия 2 года! <br> Только для своих!</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/signup">Стать своим!!!</a></p>
+        <p><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/signup">Стать своим!!!</a>
+        <br><br><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/login">Да свои я!..., короче наш :) , открывай давай!!!</a></p>
+    </div>
+
+
+    <div class="jumbotron <?php echo $class = $userId ? $login : $logout; ?>">
+        <h1><?=$username?>, привет!</h1>
+
+        <p class="lead"></p>
+
+        <p><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/basket/index">Посмотреть закрома :)</a></p>
     </div>
 
     <div class="body-content">
-
         <div class="row">
 
             <?php // echo count($product); ?>
@@ -33,7 +55,7 @@ $this->title = 'Frontend';
                     <p><?=substr($item->description, 0, 200)?></p>
                 </div>
 
-                <div style="height:50px;">
+                <div style="height:70px;">
                     <h2><?=substr($item->price, 0, strpos($item->price, '.'))?>тг</h2>
                 </div>
 
