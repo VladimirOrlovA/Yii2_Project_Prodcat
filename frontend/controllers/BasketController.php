@@ -43,7 +43,31 @@ class BasketController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
+    public function actionMy()
+    {
+        $id = Yii::$app->user->id;    
+        return $this->render('view', [
+            'model' => $this->userBasket(),
+        ]);
+//        $searchModel = new BasketSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//        return $this->render('index', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
+    }
+    
+    protected function userBasket()
+    {
+       $userId = Yii::$app->user->id;
+        return $model = Basket::find() //->all();
+            //->select('*')
+            ->leftJoin('product', 'product.id = basket.product_id')
+            ->where(['basket.user_id' => $userId])
+            ->all();
+    }
     /**
      * Displays a single Basket model.
      * @param integer $id

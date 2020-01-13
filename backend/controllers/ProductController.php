@@ -92,6 +92,7 @@ class ProductController extends Controller
             
             // обнуляем поле, иначе вызывается 
             $model->imageFile = null;
+            $model->created_date = date('Y-m-d H:i:s');
             if ($model->save()){
                 $transaction->commit();
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -150,7 +151,7 @@ class ProductController extends Controller
             
             // обнуляем поле, иначе вызывается ошибка 
             $model->imageFile = null;
-            
+            if ($created_date == null) $model->created_date = date('Y-m-d H:i:s');
             if ($model->save()){
                 if($prevFileName != $uploadFileName && $fileSaveRes){
                     unlink($prev_file_path);

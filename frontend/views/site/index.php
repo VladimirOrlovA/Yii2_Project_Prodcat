@@ -27,8 +27,12 @@ $this->title = 'Frontend';
         <p><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/signup">Стать своим!!!</a>
         <br><br><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/login">Да свои я!..., короче наш :) , открывай давай!!!</a></p>
     </div>
-
-
+    
+    <?php if(!Yii::$app->user->isGuest): ?>
+        <div>
+            <?= "I am login"?>
+        </div>
+    <?php endif; ?>
     <div class="jumbotron <?php echo $class = $userId ? $login : $logout; ?>">
         <h1><?=$username?>, привет!</h1>
 

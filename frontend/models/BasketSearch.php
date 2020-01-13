@@ -40,7 +40,7 @@ class BasketSearch extends Basket
      */
     public function search($params)
     {
-        $query = Basket::find();
+        $query = Basket::find()->where(['basket.user_id' => 4]);
 
         // add conditions that should always apply here
 

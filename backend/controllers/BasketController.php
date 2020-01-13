@@ -65,7 +65,8 @@ class BasketController extends Controller
     public function actionCreate()
     {
         $model = new Basket();
-
+        $model->created_date = date('Y-m-d H:i:s');
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -85,7 +86,8 @@ class BasketController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->created_date = date('Y-m-d H:i:s');
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

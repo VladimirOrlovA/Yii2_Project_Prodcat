@@ -2,38 +2,80 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
+use yii\data\ActiveDataProvider;
+
+use frontend\models\Basket;
+
+use yii\grid\GridView;
+
+//use frontend\models\Basket;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Basket */
+/* @var $model frontend\models\Basket */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Baskets', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+//$this->title = $model->id;
+//$this->params['breadcrumbs'][] = ['label' => 'Baskets', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = $this->title;
+//\yii\web\YiiAsset::register($this);
 ?>
-<div class="basket-view">
+<div >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php 
+    //var_dump($model);
+    echo '<br>';
+    
+//    foreach($model as $item){
+//        echo $item->product->brand;
+//        echo DetailView::widget([
+//        'model' => $item,
+//        'attributes' => [
+//            'id',
+//            'product.type',
+//            'product.brand',
+//            'product.model',
+//            'product.status',
+//            'product.quantity',
+//            'product.price',
+//            'product.description:ntext',
+//            'product.image',
+//            'product.created_date',
+//        ],
+//            ]);
+//    }
+?>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+ <?php   
+    $userId = Yii::$app->user->id;
+    $dataProvider = new ActiveDataProvider([
+    'query' => Basket::find()
+            ->leftJoin('product', 'product.id = basket.product_id')
+            ->where(['basket.user_id' => $userId]),
+//            ->all(),
+//    'pagination' => [
+//        'pageSize' => 2,
+//    ],
+]);
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
+echo GridView::widget([
+        'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
             'id',
-            'user_id',
-            'product_id',
-            'created_date',
+            'product.type',
+            'product.brand',
+            'product.model',
+            'product.status',
+            'product.quantity',
+            'product.price',
+            'product.description:ntext',
+            'product.image',
+            'product.created_date',
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]) ?>
+    ]); ?>
 
 </div>

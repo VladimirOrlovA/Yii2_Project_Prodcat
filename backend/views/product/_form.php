@@ -47,7 +47,7 @@ use vova07\imperavi\Widget;
     
     <?= $form->field($model, 'imageFile')->fileInput() ?>
     
-    <?= $form->field($model, 'created_date')->textInput() ?>
+    <?= $d;//$form->field($model, 'created_date')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
