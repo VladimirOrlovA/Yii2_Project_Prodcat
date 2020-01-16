@@ -43,7 +43,7 @@ use vova07\imperavi\Widget;
     ],
     ]) ?>
 
-    <?= $q;//$form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->textInput(['value' => $model->image ? $model->image : 'изображение ранее не загружали', 'readonly' => "readonly"]) ?>
     
     <?= $form->field($model, 'imageFile')->fileInput() ?>
     

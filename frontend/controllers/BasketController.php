@@ -61,7 +61,7 @@ class BasketController extends Controller
     
     protected function userBasket()
     {
-       $userId = Yii::$app->user->id;
+        $userId = Yii::$app->user->id;
         return $model = Basket::find() //->all();
             //->select('*')
             ->leftJoin('product', 'product.id = basket.product_id')
@@ -98,7 +98,17 @@ class BasketController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionAdd()
+    {
+        $model = new Basket();
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return 'Товар успешно добавлен';
+        }
+
+        return 'С добавлением товара возникли проблемы';
+    }
     /**
      * Updates an existing Basket model.
      * If update is successful, the browser will be redirected to the 'view' page.

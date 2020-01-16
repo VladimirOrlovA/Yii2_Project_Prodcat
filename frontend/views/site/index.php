@@ -18,20 +18,20 @@ $this->title = 'Frontend';
     $login = 'show';
     $logout = 'hidden';
     ?>
-    
+
     <div class="jumbotron <?php echo $class = $userId ? $logout : $login; ?>">
         <h1>Интернет магазин</h1>
 
         <p class="lead">Цены ниже конкурентов на 20%, на всю технику полная гарантия 2 года! <br> Только для своих!</p>
 
         <p><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/signup">Стать своим!!!</a>
-        <br><br><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/login">Да свои я!..., короче наш :) , открывай давай!!!</a></p>
+            <br><br><a class="btn btn-lg btn-success" href="http://prodcat.com/index.php/site/login">Да свой я!..., короче наш :) , открывай давай!!!</a></p>
     </div>
-    
+
     <?php if(!Yii::$app->user->isGuest): ?>
-        <div>
-            <?= "I am login"?>
-        </div>
+    <div>
+        <?= "I am login"?>
+    </div>
     <?php endif; ?>
     <div class="jumbotron <?php echo $class = $userId ? $login : $logout; ?>">
         <h1><?=$username?>, привет!</h1>
@@ -51,7 +51,8 @@ $this->title = 'Frontend';
                 <div style="height:100px;">
                     <h2><?=$item->model?></h2>
                 </div>
-                <div>
+                
+                <div style="width:200px; height:200px">
                     <img src="http://admin.prodcat.com/index.php/product/get-image?file_name=<?=$item->image?>" alt="" style="width:200px">
                 </div>
 
@@ -63,7 +64,8 @@ $this->title = 'Frontend';
                     <h2><?=substr($item->price, 0, strpos($item->price, '.'))?>тг</h2>
                 </div>
 
-                <p><a class="btn btn-default" href="http://admin.prodcat.com/index.php/product/update?id=<?=$item->id?>">Подробнее...&raquo;</a></p>
+                <p><a class="btn btn-default" href="http://prodcat.com/index.php/product/one?id=<?=$item->id?>">Подробнее...&raquo;</a></p>
+                <p><a class="btn btn-default" href="http://prodcat.com/index.php/product/one?id=<?=$item->id?>">Добавить в корзину&raquo;</a></p>
             </div>
             <?php endforeach; ?>
 

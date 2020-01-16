@@ -153,7 +153,7 @@ class ProductController extends Controller
             $model->imageFile = null;
             if ($created_date == null) $model->created_date = date('Y-m-d H:i:s');
             if ($model->save()){
-                if($prevFileName != $uploadFileName && $fileSaveRes){
+                if($prevFileName != $uploadFileName && $fileSaveRes && $prevFileName != 0){
                     unlink($prev_file_path);
                 }
                 $transaction->commit();
