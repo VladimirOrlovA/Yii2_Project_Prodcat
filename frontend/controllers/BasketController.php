@@ -99,16 +99,20 @@ class BasketController extends Controller
         ]);
     }
     
-    public function actionAdd()
+    public function actionAdd($userId, $productID)
     {
         $model = new Basket();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return 'Товар успешно добавлен';
-        }
-
-        return 'С добавлением товара возникли проблемы';
+        $model->user_id = $userId;
+        $model->product_id = $productID;
+        $model->save();
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return 'Товар успешно добавлен';
+//        }
+//
+//        return 'С добавлением товара возникли проблемы';
     }
+    
+    
     /**
      * Updates an existing Basket model.
      * If update is successful, the browser will be redirected to the 'view' page.
