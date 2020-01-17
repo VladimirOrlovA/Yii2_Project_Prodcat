@@ -36,6 +36,7 @@ class Basket extends \yii\db\ActiveRecord
             [['created_date'], 'safe'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['quantity'], 'integer'],
         ];
     }
 
@@ -49,6 +50,7 @@ class Basket extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'product_id' => 'Product ID',
             'created_date' => 'Created Date',
+            'quantity' => 'Quantity',
         ];
     }
 

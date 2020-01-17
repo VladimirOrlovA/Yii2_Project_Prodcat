@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'user_id') ?>
 
     <?= $form->field($model, 'product_id') ?>
+    
+    <?= $form->field($model, 'quantity') ?>
 
     <?= $form->field($model, 'created_date') ?>
 

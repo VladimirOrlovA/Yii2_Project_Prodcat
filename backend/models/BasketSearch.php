@@ -19,6 +19,7 @@ class BasketSearch extends Basket
         return [
             [['id', 'user_id', 'product_id'], 'integer'],
             [['created_date'], 'safe'],
+            [['quantity'], 'integer'],
         ];
     }
 
@@ -62,6 +63,7 @@ class BasketSearch extends Basket
             'user_id' => $this->user_id,
             'product_id' => $this->product_id,
             'created_date' => $this->created_date,
+            'quantity' => $this->quantity,
         ]);
 
         return $dataProvider;

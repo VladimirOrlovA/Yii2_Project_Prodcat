@@ -16,6 +16,7 @@ class m200102_125600_create_basket_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull()->comment('ИН зарегистрированного пользователя'),
             'product_id' => $this->integer()->notNull()->comment('ИН товара из каталога'),
+            'quantity' => $this->integer()->notNull()->comment('Кол-во товара'),
             'created_date' => $this->timestamp()->comment('Дата создания'),
         ]);
         

@@ -62,7 +62,7 @@ class BasketController extends Controller
     protected function userBasket()
     {
         $userId = Yii::$app->user->id;
-        return $model = Basket::find() //->all();
+        return $model = Basket::find()
             //->select('*')
             ->leftJoin('product', 'product.id = basket.product_id')
             ->where(['basket.user_id' => $userId])
@@ -99,17 +99,21 @@ class BasketController extends Controller
         ]);
     }
     
-    public function actionAdd($userId, $productID)
+    public function actionAdd($userId, $productId)
     {
         $model = new Basket();
-        $model->user_id = $userId;
-        $model->product_id = $productID;
+        $model->user_id = intval($userId);
+        $model->product_id = intval($productId);
+        $model->quantity = 1;
+        $model->created_date = Date('Y-m-d H:i:s');
         $model->save();
-//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            return 'Товар успешно добавлен';
-//        }
-//
-//        return 'С добавлением товара возникли проблемы';
+        if ($model->save()) {
+            return 'Товар успешно добавлен';
+            
+        }
+
+        return 'С добавлением товара возникли проблемы';
+        echo var_dump($model->user_id);
     }
     
     
@@ -144,7 +148,7 @@ class BasketController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['add']);
     }
 
     /**

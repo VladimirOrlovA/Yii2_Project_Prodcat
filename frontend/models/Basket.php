@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use backend\models\Product;
+use backend\models\User;
 use Yii;
 
 /**
@@ -37,6 +38,7 @@ class Basket extends \yii\db\ActiveRecord
             [['created_date'], 'safe'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['quantity'], 'integer'],
         ];
     }
 

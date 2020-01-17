@@ -18,6 +18,7 @@ class BasketSearch extends Basket
     {
         return [
             [['id', 'user_id', 'product_id'], 'integer'],
+            [['quantity'], 'integer'],
             [['created_date'], 'safe'],
         ];
     }
@@ -61,6 +62,7 @@ class BasketSearch extends Basket
             'id' => $this->id,
             'user_id' => $this->user_id,
             'product_id' => $this->product_id,
+            'quantity' => $this->quantity,
             'created_date' => $this->created_date,
         ]);
 

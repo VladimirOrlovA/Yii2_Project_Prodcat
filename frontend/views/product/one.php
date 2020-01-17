@@ -18,7 +18,7 @@
     </div>
     
     <?php $userId = Yii::$app->user->id; ?>
-    <p><a class="btn btn-default" href="/basket/add?userId=<?=$userId?>&$productId=<?=$product->id?>">Добавить в корзину&raquo;</a></p>
+    <p><a class="btn btn-default" href="/basket/add?userId=<?=$userId?>&productId=<?=$product->id?>">Добавить в корзину&raquo;</a></p>
     
     <?php  
         echo Yii::$app->user->id.' '.$product->id;

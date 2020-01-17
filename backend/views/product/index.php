@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'brand',
             'model',
             'status',
-            //'quantity',
+            'quantity',
             //'price',
             //'description:ntext',
             //'image',
-            //'created_date',
+            'created_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
